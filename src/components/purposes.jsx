@@ -65,31 +65,33 @@ export default class Purposes extends React.Component {
             if (status.allDisabled) status.onlyRequiredEnabled = false;
             return status;
         };
-        const purposeOrder = config.purposeOrder || []
-        const purposeItems = Object.keys(purposes).sort((a,b) => purposeOrder.indexOf(a)-purposeOrder.indexOf(b)).map((purpose) => {
-            const togglePurpose = (value) => {
-                toggle([purpose], value);
-            };
-            const status = checkServices(purposes[purpose]);
-            return (
-                <li key={purpose} className="cm-purpose">
-                    <PurposeItem
-                        allEnabled={status.allEnabled}
-                        allDisabled={status.allDisabled}
-                        onlyRequiredEnabled={status.onlyRequiredEnabled}
-                        required={status.allRequired}
-                        consents={consents}
-                        name={purpose}
-                        config={config}
-                        lang={lang}
-                        manager={manager}
-                        onToggle={togglePurpose}
-                        services={purposes[purpose]}
-                        t={t}
-                    />
-                </li>
-            );
-        });
+        const purposeOrder = config.purposeOrder || [];
+        const purposeItems = Object.keys(purposes)
+            .sort((a, b) => purposeOrder.indexOf(a) - purposeOrder.indexOf(b))
+            .map((purpose) => {
+                const togglePurpose = (value) => {
+                    toggle([purpose], value);
+                };
+                const status = checkServices(purposes[purpose]);
+                return (
+                    <li key={purpose} className="cm-purpose">
+                        <PurposeItem
+                            allEnabled={status.allEnabled}
+                            allDisabled={status.allDisabled}
+                            onlyRequiredEnabled={status.onlyRequiredEnabled}
+                            required={status.allRequired}
+                            consents={consents}
+                            name={purpose}
+                            config={config}
+                            lang={lang}
+                            manager={manager}
+                            onToggle={togglePurpose}
+                            services={purposes[purpose]}
+                            t={t}
+                        />
+                    </li>
+                );
+            });
 
         const togglablePurposes = Object.keys(purposes).filter((purpose) => {
             for (const service of purposes[purpose]) {

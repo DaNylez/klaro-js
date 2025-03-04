@@ -9,6 +9,13 @@ export default class PurposeItem extends React.Component {
         this.state = {
             servicesVisible: false,
         };
+
+        if (props.config.initiallyExpandedPurposes?.includes(props.name)) {
+            this.state.servicesVisible = true;
+        }
+
+        this.state.serviceLabels =
+            props.config.translations?.[props.lang]?.serviceLabels;
     }
 
     render() {
@@ -27,7 +34,7 @@ export default class PurposeItem extends React.Component {
             description,
             t,
         } = this.props;
-        const { servicesVisible } = this.state;
+        const { servicesVisible, serviceLabels } = this.state;
         const required = this.props.required || false;
         const purposes = this.props.purposes || [];
         const onChange = (e) => {
@@ -167,12 +174,16 @@ export default class PurposeItem extends React.Component {
                                     <span>&#8595;</span>
                                 )}{' '}
                                 {services.length}{' '}
-                                {t([
-                                    'purposeItem',
-                                    services.length > 1
-                                        ? 'services'
-                                        : 'service',
-                                ])}
+                                {serviceLabels
+                                    ? serviceLabels[
+                                          services.length === 1 ? 0 : 1
+                                      ]
+                                    : t([
+                                          'purposeItem',
+                                          services.length > 1
+                                              ? 'services'
+                                              : 'service',
+                                      ])}
                             </a>
                         </div>
                         <ul

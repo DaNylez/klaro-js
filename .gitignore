@@ -3,3 +3,8 @@ build
 __pycache__
 node_modules
 yarn.lock
+
+.history/
+.dist/
+.idea/
+.vscode/
